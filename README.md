@@ -1,5 +1,7 @@
 # gemtext
 
+[![Clojars Project](https://img.shields.io/clojars/v/com.omarpolo/gemtext.svg)](https://clojars.org/com.omarpolo/gemtext)
+
 A Clojure library to parse text/gemini.  It uses a format similar to
 hiccup to represent documents, and provides a function to convert
 gemtext' hiccup to "usual" HTML-hiccup.
