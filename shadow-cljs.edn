@@ -1,0 +1,6 @@
+{:source-paths ["src/"
+                "test/"]
+ :dependencies []
+ :builds       {:lib {:target    :node-library
+                      :output-to "gemtext.js"
+                      :exports   {:parser gemtext.core/parser}}}}
