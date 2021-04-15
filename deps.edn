@@ -7,4 +7,4 @@
   :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
             :main-opts  ["-m" "deps-deploy.deps-deploy" "install" "gemtext.jar" "true"]}
   :deploy  {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
-            :main-opts  ["-m" "deps-deploy.deps-deploy/deploy" :installer :remote :artifact "gemtext.jar"]}}}
+            :main-opts  ["-m" "deps-deploy.deps-deploy" "deploy" "gemtext.jar"]}}}
