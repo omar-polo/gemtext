@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
   <groupId>com.omarpolo</groupId>
   <artifactId>gemtext</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <name>gemtext</name>
   <dependencies>
     <dependency>
