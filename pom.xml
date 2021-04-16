@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <scm>
+    <connection>scm:git:git://github.com/omar-polo/gemtext.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/omar-polo/gemtext.git</developerConnection>
+    <tag>0bec3b2cae86b80883c3c614caf409126b68ffac</tag>
+    <url>https://github.com/omar-polo/gemtext</url>
+  </scm>
   <packaging>jar</packaging>
   <groupId>com.omarpolo</groupId>
   <artifactId>gemtext</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <name>gemtext</name>
   <dependencies>
     <dependency>
