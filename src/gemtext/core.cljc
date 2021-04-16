@@ -31,7 +31,7 @@
 
 (defn parser
   "Transducer to parse text/gemini into something hiccup-like.
-  Produces items in the from [:type string] or [:type attr string]."
+  Produces items in the from `[:type string]` or `[:type attr string]`."
   [rf]
   (let [acc   (volatile! [])
         flush #(let [a @acc]            ; sometimes I wish clojure
