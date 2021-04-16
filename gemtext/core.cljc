@@ -95,7 +95,9 @@
     :header-3 (str "### " a)
     :item     (str "* " a)
     :quote    (str "> " a)
-    :link     (str "=> " a " " (or b a))
+    :link     (if (and b (not= b ""))
+                (str "=> " a " " b)
+                (str "=> " a))
     :text     a))
 
 (defn unparse
@@ -110,8 +112,7 @@
                                 t
                                 (do
                                   (vswap! acc conj (unparse1 t))
-                                  (when (not= :pre (first t))
-                                    (vswap! acc conj "\n"))
+                                  (vswap! acc conj "\n")
                                   nil))))
      x)
     (apply str @acc)))
