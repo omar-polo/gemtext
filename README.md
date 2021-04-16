@@ -1,6 +1,10 @@
 # gemtext
 
-[![Clojars Project](https://img.shields.io/clojars/v/com.omarpolo/gemtext.svg)](https://clojars.org/com.omarpolo/gemtext)
+[![Clojars
+Project](https://img.shields.io/clojars/v/com.omarpolo/gemtext.svg)](https://clojars.org/com.omarpolo/gemtext)
+[![cljdoc badge](https://cljdoc.org/badge/com.omarpolo/gemtext)](https://cljdoc.org/d/com.omarpolo/gemtext/CURRENT)
+
+
 
 A Clojure library to parse text/gemini.  It uses a format similar to
 hiccup to represent documents, and provides a function to convert
