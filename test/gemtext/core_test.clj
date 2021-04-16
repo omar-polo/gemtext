@@ -5,17 +5,38 @@
   (:import
    (java.io BufferedReader StringReader)))
 
+(def str->gmi-examples
+  {"# header-1\n"                [[:header-1 "header-1"]]
+   "## header-2\n"               [[:header-2 "header-2"]]
+   "### header-3\n"              [[:header-3 "header-3"]]
+   "=> something else\n"         [[:link "something" "else"]]
+   "=> /foo\n"                   [[:link "/foo" ""]]
+   "= >/foo\n"                   [[:text "= >/foo"]]
+   "```descr\ncode\ncode\n```\n" [[:pre "descr" "code\ncode\n"]]
+   "* item\n* item 2\n"          [[:item "item"] [:item "item 2"]]})
+
 (deftest gemtext-tests
   (testing "can parse simple strings"
-    (let [s {"# header-1"                [[:header-1 "header-1"]]
-             "## header-2"               [[:header-2 "header-2"]]
-             "### header-3"              [[:header-3 "header-3"]]
-             "=> something else"         [[:link "something" "else"]]
-             "=>something else"          [[:link "something" "else"]]
-             "=>/foo"                    [[:link "/foo" ""]]
-             "= >/foo"                   [[:text "= >/foo"]]
-             "```descr\ncode\ncode\n```" [[:pre "descr" "code\ncode\n"]]
-             "* item\n* item 2"          [[:item "item"] [:item "item 2"]]}]
+    (doseq [i str->gmi-examples]
+      (let [[str ex] i]
+        (is (= (parse str) ex)))))
+
+  (testing "space is not required after the markers"
+    (let [s {"#h"           [[:header-1 "h"]]
+             "##h"          [[:header-2 "h"]]
+             "###h"         [[:header-3 "h"]]
+             "*item"        [[:item "item"]]
+             ">quote"       [[:quote "quote"]]
+             "=>/link text" [[:link "/link" "text"]]}]
+      (doseq [i s]
+        (let [[str ex] i]
+          (is (= (parse str) ex))))))
+
+  (testing "doesn't get fooled by text lines that looks like other types"
+    (let [s {" # header?"       [[:text " # header?"]]
+             "= > broken link?" [[:text "= > broken link?"]]
+             " * item?"         [[:text " * item?"]]
+             " >wannabe quote?" [[:text " >wannabe quote?"]]}]
       (doseq [i s]
         (let [[str ex] i]
           (is (= (parse str) ex))))))
@@ -30,7 +51,20 @@
 
   (testing "can parse from buffered reades"
     (is (= (parse (BufferedReader. (StringReader. "# hello")))
-           [[:header-1 "hello"]]))))
+           [[:header-1 "hello"]])))
+
+  (testing "can unparse"
+    (let [s {[[:header-1 "title"] [:text ""]] "# title\n\n"
+             [[:quote "something clever"]]    "> something clever\n"
+             [(repeat 3 [:item "n"])]         "* n\n* n\n* n\n"}]
+      (doseq [i s]
+        (let [[h ex] i]
+          (is (= (unparse h) ex))))))
+
+  (testing "(parse ∘ unparse) sometimes can be identity"
+    (doseq [i str->gmi-examples]
+      (let [[str _] i]
+        (is (= str ((comp unparse parse) str)))))))
 
 (comment
   (run-all-tests)
