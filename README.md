@@ -24,8 +24,8 @@ user=> (transduce gemtext/parser conj [] '("# hello world"))
 ```
 
 `parse` is function that parses the given *thing*.  It's a
-multimethod, and default implementations are given for strings and
-sequences (of string).
+multimethod, and default implementations are given for strings,
+sequences (of string) and java readers.
 
 ```clojure
 user=> (gemtext/parse "some\nlines\nof\ntext")

@@ -1,7 +1,9 @@
 (ns gemtext.core
   (:require
    [clojure.string :as str]
-   [clojure.walk :as walk]))
+   [clojure.walk :as walk])
+  (:import
+   (java.io Reader BufferedReader)))
 
 (defn- line-type [s]
   (condp #(str/starts-with? %2 %1) s
@@ -62,7 +64,13 @@
             (transduce parser conj [] s))
 
           (defmethod parse String [s]
-            (parse (str/split-lines s))))
+            (parse (str/split-lines s)))
+
+          (defmethod parse BufferedReader [r]
+            (parse (line-seq r)))
+
+          (defmethod parse Reader [r]
+            (parse (BufferedReader. r))))
 
    :cljs (do
            (defmulti parse
@@ -159,6 +167,8 @@
        (map to-hiccup2)
        (mapcat identity)
        )
+
+  (parse (BufferedReader. (java.io.StringReader. "# test")))
 
   (to-hiccup
    (parse
