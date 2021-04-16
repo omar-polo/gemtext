@@ -2,8 +2,9 @@
   (:require
    [clojure.string :as str]
    [clojure.walk :as walk])
-  (:import
-   (java.io BufferedReader Reader)))
+  #?(:clj
+     (:import
+      (java.io BufferedReader Reader))))
 
 (defn- line-type [s]
   (condp #(str/starts-with? %2 %1) s
