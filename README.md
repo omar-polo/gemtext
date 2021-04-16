@@ -33,6 +33,10 @@ text/gemini specification calls them "toggle markers", but I believe
 it's more intuitive to consider them as a block, even if slightly
 improper.
 
+Only `:pre` and `:link` have the two-airity array, i.e. `[:pre "descr"
+"content"]` and `[:link "url" "descr"]`, all the other "tags" have
+only a single body.
+
 > Why don't re-use the same HTML tag?  i.e. :p, :h1, :li etc
 
 text/gemini is not 1-to-1 with HTML.  For example, what HTML calls a
