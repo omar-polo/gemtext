@@ -165,31 +165,3 @@
        (partition-by #(= (first %) :item))
        (map to-hiccup2)
        (mapcat identity)))
-
-(comment
-  (->> "list:\n* uno\n*due\n* tre\naltro\n*quattro"
-       parse
-       flat
-       (partition-by #(= (first %) :item))
-       (map to-hiccup2)
-       (mapcat identity)
-       )
-
-  (to-hiccup
-   (parse
-    "list:\n* uno\n*due\n* tre\naltro\n*quattro\n=> /foo.html bar")
-   
-   )
-
-  (flat (list (parse "hello world\n* item\n\n# title\n\n```\nhello\n````")
-              (parse "hello\n* hee\n")))
-  (parse '("hello" "world" "how"))
-  (unparse (parse "```\nhello\nfooo\n```"))
-  (unparse1 [:text "foo"])
-  (parse "=> /foo hello there\n* hello\n*there\n=>/foo/bar bazzz!!\n")
-
-  (parse (repeat 3 "hello"))
-  (unparse [[:link "/index.gmi" "Home"] [:text "foo"]])
-
-  ((comp unparse parse) "#hello world")
-  )
