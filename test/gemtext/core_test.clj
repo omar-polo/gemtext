@@ -41,6 +41,10 @@
         (let [[str ex] i]
           (is (= (parse str) ex))))))
 
+  (testing "doesn't mangle pre sections"
+    (is (= (parse "```sh\n# a comment\necho\n```")
+           [[:pre "sh" "# a comment\necho\n"]])))
+
   (testing "can parse sequences of strings"
     (is (= (parse (list "=> /1" "=> /2" "=> /3"))
            [[:link "/1" ""] [:link "/2" ""] [:link "/3" ""]])))
