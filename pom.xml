@@ -4,19 +4,19 @@
   <scm>
     <connection>scm:git:git://github.com/omar-polo/gemtext.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/omar-polo/gemtext.git</developerConnection>
-    <tag>fd9e4a5d7067966aa05c6ab2fc8c61aa3dfd37f5</tag>
+    <tag>0.1.6</tag>
     <url>https://github.com/omar-polo/gemtext</url>
   </scm>
   <packaging>jar</packaging>
   <groupId>com.omarpolo</groupId>
   <artifactId>gemtext</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6</version>
   <name>gemtext</name>
   <dependencies>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.4</version>
+      <version>1.10.3</version>
     </dependency>
   </dependencies>
   <build>
