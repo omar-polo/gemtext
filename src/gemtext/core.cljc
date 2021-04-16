@@ -1,7 +1,9 @@
 (ns gemtext.core
   (:require
    [clojure.string :as str]
-   [clojure.walk :as walk]))
+   [clojure.walk :as walk])
+  (:import
+   (java.io BufferedReader Reader)))
 
 (defn- line-type [s]
   (condp #(str/starts-with? %2 %1) s
@@ -46,7 +48,9 @@
              accumulating? (not (empty? @acc))]
          (cond
            (and toggle? accumulating?) (rf res (flush))
-           (or toggle? accumulating?)  (do (vswap! acc conj line)
+           (or toggle? accumulating?)  (do (vswap! acc conj (if accumulating?
+                                                              i
+                                                              line))
                                            (when accumulating?
                                              (vswap! acc conj "\n"))
                                            res)
@@ -62,7 +66,13 @@
             (transduce parser conj [] s))
 
           (defmethod parse String [s]
-            (parse (str/split-lines s))))
+            (parse (str/split-lines s)))
+
+          (defmethod parse BufferedReader [r]
+            (parse (line-seq r)))
+
+          (defmethod parse Reader [r]
+            (parse (BufferedReader. r))))
 
    :cljs (do
            (defmulti parse
@@ -87,7 +97,9 @@
     :header-3 (str "### " a)
     :item     (str "* " a)
     :quote    (str "> " a)
-    :link     (str "=> " a " " (or b a))
+    :link     (if (and b (not= b ""))
+                (str "=> " a " " b)
+                (str "=> " a))
     :text     a
     (throw (ex-info "invalid gemtext-hiccup type" {:type type
                                                    :params [a b]}))))
@@ -104,8 +116,7 @@
                                 t
                                 (do
                                   (vswap! acc conj (unparse1 t))
-                                  (when (not= :pre (first t))
-                                    (vswap! acc conj "\n"))
+                                  (vswap! acc conj "\n")
                                   nil))))
      x)
     (apply str @acc)))
