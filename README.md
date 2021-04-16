@@ -12,17 +12,16 @@ gemtext' hiccup to "usual" HTML-hiccup.
 (require '[gemtext.core :as gemtext])
 ```
 
-#### `parser`
+Follows the documentation for the exported functions.
 
 `parser` is a transducer that takes text/gemini lines and produces
-hiccup:
+hiccup.  It's useful if you already have a pipeline and/or want to
+parse a (possibly infinite) stream of text/gemini.
 
 ```clojure
 user=> (transduce gemtext/parser conj [] '("# hello world"))
 [[:header-1 "hello world"]]
 ```
-
-#### `parse`
 
 `parse` is function that parses the given *thing*.  It's a
 multimethod, and default implementations are given for strings and
@@ -32,23 +31,21 @@ sequences (of string).
 user=> (gemtext/parse "some\nlines\nof\ntext")
 [[:text "some"] [:text "lines"] [:text "of"] [:text "text"]]
 
-user=> (gemtext/parse (repeat 3 "hello"))
-[[:text "hello"] [:text "hello"] [:text "hello"]]
+user=> (gemtext/parse (repeat 3 "* test"))
+[[:item "test"] [:item "test"] [:item "test"]]
 ```
 
-#### `unparse`
-
-The complement of `parse`, given an hiccup-like data structure returns
-a string:
+`unparse` is the complement of `parse`: transforms a hiccup data
+structure back to a string.
 
 ```clojure
-user=> (gemtext/unparse [[:link "/foo.gmi" "A link"]])
-"=> /foo.gmi A link\n"
+user=> (gemtext/unparse [[:link "/foo" "A link"]])
+"=> /foo A link\n"
 ```
 
-#### `to-hiccup`
-
-`to-hiccup` converts gemtext hiccup to "classical" (i.e. HTML) hiccup:
+`to-hiccup` converts gemtext hiccup to "classical" (i.e. HTML) hiccup,
+so it's easier to integrate with other libraries, or to further
+convert to HTML.
 
 ```clojure
 user=> (gemtext/to-hiccup [[:header-1 "text/gemini"] [:text "..."]])
