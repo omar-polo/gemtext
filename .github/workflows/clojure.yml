@@ -21,6 +21,6 @@ jobs:
       image: clojure:openjdk-${{ matrix.jdk_version }}-tools-deps
 
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
       - name: Test
-        run: ./bin/kaocha
+        run: sh bin/kaocha
