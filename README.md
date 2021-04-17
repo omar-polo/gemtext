@@ -19,9 +19,9 @@ gemtext' hiccup to "usual" HTML-hiccup.
 This library uses a "hiccup"-like notation, where a parsed document is
 represented as a sequence of vector in the form `[tag body]` or `[tag
 attr body]`.  Unlike the usual hiccup, `attr` is always a string and
-not a map, since text/gemini doesn't have the concept of "attributes".
+not a map, since text/gemini doesn't have the concept of "attributes."
 Every vector represents one line of the original input, except for the
-`:pre` which has a body the whole preformatted block.
+`:pre` which has as body the whole preformatted block.
 
 The supported tags are:
 
