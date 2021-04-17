@@ -1,5 +1,6 @@
 # gemtext
 
+[![ci](https://github.com/omar-polo/gemtext/actions/workflows/clojure.yml/badge.svg)](https://github.com/omar-polo/gemtext/actions/workflows/clojure.yml)
 [![Clojars
 Project](https://img.shields.io/clojars/v/com.omarpolo/gemtext.svg)](https://clojars.org/com.omarpolo/gemtext)
 [![cljdoc badge](https://cljdoc.org/badge/com.omarpolo/gemtext)](https://cljdoc.org/d/com.omarpolo/gemtext/CURRENT)
