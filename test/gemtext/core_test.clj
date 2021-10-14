@@ -13,6 +13,7 @@
    "=> /foo\n"                   [[:link "/foo" ""]]
    "= >/foo\n"                   [[:text "= >/foo"]]
    "```descr\ncode\ncode\n```\n" [[:pre "descr" "code\ncode\n"]]
+   "*foo\n* item\n"              [[:text "*foo"] [:item "item"]]
    "* item\n* item 2\n"          [[:item "item"] [:item "item 2"]]})
 
 (deftest gemtext-tests
@@ -25,12 +26,15 @@
     (let [s {"#h"           [[:header-1 "h"]]
              "##h"          [[:header-2 "h"]]
              "###h"         [[:header-3 "h"]]
-             "*item"        [[:item "item"]]
              ">quote"       [[:quote "quote"]]
              "=>/link text" [[:link "/link" "text"]]}]
       (doseq [i s]
         (let [[str ex] i]
           (is (= (parse str) ex))))))
+
+  (testing "space is required after the item marker apparently"
+    (is (= (parse "*foo") [[:text "*foo"]]))
+    (is (= (parse "* item") [[:item "item"]])))
 
   (testing "doesn't get fooled by text lines that looks like other types"
     (let [s {" # header?"       [[:text " # header?"]]

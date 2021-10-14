@@ -11,7 +11,7 @@
     "###" [:header-3 (subs s 3)]
     "##"  [:header-2 (subs s 2)]
     "#"   [:header-1 (subs s 1)]
-    "*"   [:item     (subs s 1)]
+    "* "  [:item     (subs s 1)]
     ">"   [:quote    (subs s 1)]
     "=>"  [:link     (subs s 2)]
     "```" [:toggle   (subs s 3)]
