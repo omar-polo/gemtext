@@ -2,9 +2,7 @@
  :aliases
  {:test    {:extra-paths ["test"]
             :extra-deps  {lambdaisland/kaocha {:mvn/version "1.0.829"}}}
-  :jar     {:extra-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
-            :main-opts  ["-m" "hf.depstar.jar" "gemtext.jar"]}
-  :install {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
-            :main-opts  ["-m" "deps-deploy.deps-deploy" "install" "gemtext.jar" "true"]}
-  :deploy  {:extra-deps {slipset/deps-deploy {:mvn/version "0.1.5"}}
-            :main-opts  ["-m" "deps-deploy.deps-deploy" "deploy" "gemtext.jar"]}}}
+  :build {:deps {io.github.clojure/tools.build {:tag "v0.6.2"
+                                                :sha "7ef409b370312c8819c587aa648177331602fa44"}
+                 slipset/deps-deploy {:mvn/version "0.2.0"}}
+          :ns-default build}}}
